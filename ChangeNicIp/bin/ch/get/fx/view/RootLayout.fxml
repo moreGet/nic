@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane minHeight="400.0" minWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.get.fx.view.RootLayoutController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" onAction="#onClickedExit" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <TableView fx:id="nicTable" editable="true" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+        <columns>
+            <TableColumn prefWidth="75.0" text="용도" />
+          <TableColumn fx:id="nicName" prefWidth="75.0" text="랜카드 이름" />
+          <TableColumn fx:id="nicIp" prefWidth="75.0" text="논리 주소" />
+           <TableColumn fx:id="nicMask" prefWidth="75.0" text="서브넷 마스크" />
+           <TableColumn fx:id="nicGate" prefWidth="75.0" text="게이트웨이" />
+           <TableColumn fx:id="nicDns01" prefWidth="75.0" text="주 DNS" />
+           <TableColumn fx:id="nicDns02" prefWidth="75.0" text="보조 DNS" />
+            <TableColumn prefWidth="75.0" text="정보변경" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </center>
+</BorderPane>
