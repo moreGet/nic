@@ -5,24 +5,31 @@ import javafx.beans.property.StringProperty;
 
 public class Nic {
 
+	private final StringProperty nicKind;
 	private final StringProperty nicName;
 	private final StringProperty nicIp;
 	private final StringProperty nicMask;
 	private final StringProperty nicGate;
 	private final StringProperty nicDns01;
 	private final StringProperty nicDns02;
+	private final StringProperty nicInfo;
 	
-	public Nic(String nicName, String nicIp, String nicMask, String nicGate,
-			String nicDns01, String nicDns02) {
+	public Nic(String nicKind, String nicName, String nicIp, String nicMask, String nicGate,
+			String nicDns01, String nicDns02, String nicInfo) {
 		
+		this.nicKind = new SimpleStringProperty(nicKind);
 		this.nicName = new SimpleStringProperty(nicName);
 		this.nicIp = new SimpleStringProperty(nicIp);
 		this.nicMask = new SimpleStringProperty(nicMask);
 		this.nicGate = new SimpleStringProperty(nicGate);
 		this.nicDns01 = new SimpleStringProperty(nicDns01);
 		this.nicDns02 = new SimpleStringProperty(nicDns02);
+		this.nicInfo = new SimpleStringProperty(nicInfo);
 	}
 
+	/*
+	 * Getter
+	 */
 	public StringProperty getNicName() {
 		return nicName;
 	}
@@ -46,7 +53,18 @@ public class Nic {
 	public StringProperty getNicDns02() {
 		return nicDns02;
 	}
-		
+
+	public StringProperty getNicKind() {
+		return nicKind;
+	}
+
+	public StringProperty getNicInfo() {
+		return nicInfo;
+	}
+	
+	/*
+	 * Setter
+	 */
 	public void setNicName(String nicName) {
 		this.nicName.set(nicName);
 	}
@@ -69,6 +87,14 @@ public class Nic {
 	
 	public void setNicDns02(String nicDns02) {
 		this.nicDns02.set(nicDns02);
+	}
+	
+	public void setNicKind(String nicKind) {
+		this.nicKind.set(nicKind);
+	}
+	
+	public void setNicInfo(String nicInfo) {
+		this.nicInfo.set(nicInfo);
 	}
 }
 

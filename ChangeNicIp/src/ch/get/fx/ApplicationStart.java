@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import ch.get.fx.controller.TableDataSetController;
+import ch.get.fx.controller.WindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +13,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class ApplicationStart extends Application {
+	// INIT INSTANCE
+//	private static WindowController windowCont = WindowController.getInstance();
+//	private static TableDataSetController tableCont = TableDataSetController.getInstance();
+	
 	// Logger
 	public final static Logger LOG = Logger.getGlobal();
 	
