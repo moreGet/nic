@@ -50,4 +50,8 @@ public class ApplicationStart extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public void openEditNicWindow( ) {
+	
+	}
 }

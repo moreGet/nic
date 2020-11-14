@@ -1,6 +1,7 @@
 package ch.get.fx.controller;
 
 import ch.get.fx.model.Nic;
+import ch.get.fx.service.NicModifyServiceImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -11,6 +12,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 public class TableDataSetController {
 
 	private static ObservableList<Nic> nicData = FXCollections.observableArrayList();
+	private NicModifyServiceImpl modifyServiceImpl;
 	
 	private TableDataSetController() {
 		// 더미 데이터
@@ -51,6 +53,7 @@ public class TableDataSetController {
 	 * Getter / Setter
 	 */
 	public ObservableList<Nic> getNicData() {
+		
 		return nicData;
 	}
 }
