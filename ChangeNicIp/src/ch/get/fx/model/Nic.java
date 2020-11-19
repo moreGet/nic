@@ -1,21 +1,24 @@
 package ch.get.fx.model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Nic {
 
-	private final StringProperty nicKind;
-	private final StringProperty nicName;
-	private final StringProperty nicIp;
-	private final StringProperty nicMask;
-	private final StringProperty nicGate;
-	private final StringProperty nicDns01;
-	private final StringProperty nicDns02;
-	private final StringProperty nicInfo;
+	private final StringProperty nicKind; // NIC위치
+	private final StringProperty nicName; // 랜카드 이름
+	private final StringProperty nicIp; // 랜카드 IP
+	private final StringProperty nicMask; // 서브넷팅
+	private final StringProperty nicGate; // 게이트 웨이
+	private final StringProperty nicDns01; // DNS 1번
+	private final StringProperty nicDns02; // DNS 2번
+	private final StringProperty nicInfo; // 설명
+	private final BooleanProperty selNic; // 현재 적용 되어있는 인터페이스 정보
 	
 	public Nic(String nicKind, String nicName, String nicIp, String nicMask, String nicGate,
-			String nicDns01, String nicDns02, String nicInfo) {
+			String nicDns01, String nicDns02, String nicInfo, Boolean selNic) {
 		
 		this.nicKind = new SimpleStringProperty(nicKind);
 		this.nicName = new SimpleStringProperty(nicName);
@@ -25,6 +28,7 @@ public class Nic {
 		this.nicDns01 = new SimpleStringProperty(nicDns01);
 		this.nicDns02 = new SimpleStringProperty(nicDns02);
 		this.nicInfo = new SimpleStringProperty(nicInfo);
+		this.selNic = new SimpleBooleanProperty(selNic);
 	}
 
 	/*
@@ -62,6 +66,10 @@ public class Nic {
 		return nicInfo;
 	}
 	
+	public BooleanProperty getSelNic() {
+		return selNic;
+	}
+
 	/*
 	 * Setter
 	 */
@@ -95,6 +103,10 @@ public class Nic {
 	
 	public void setNicInfo(String nicInfo) {
 		this.nicInfo.set(nicInfo);
+	}
+	
+	public void setSelNic(boolean selNic) {
+		this.selNic.setValue(selNic);
 	}
 }
 

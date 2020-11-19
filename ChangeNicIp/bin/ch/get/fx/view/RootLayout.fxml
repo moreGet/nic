@@ -40,11 +40,12 @@
           <TableColumn fx:id="nicKind" prefWidth="75.0" text="용도" />
           <TableColumn fx:id="nicName" prefWidth="75.0" text="랜카드 이름" />
           <TableColumn fx:id="nicIp" prefWidth="75.0" text="논리 주소" />
-           <TableColumn fx:id="nicMask" prefWidth="75.0" text="서브넷 마스크" />
-           <TableColumn fx:id="nicGate" prefWidth="75.0" text="게이트웨이" />
-           <TableColumn fx:id="nicDns01" prefWidth="75.0" text="주 DNS" />
-           <TableColumn fx:id="nicDns02" prefWidth="75.0" text="보조 DNS" />
-           <TableColumn fx:id="nicInfo" prefWidth="75.0" text="정보변경" />
+          <TableColumn fx:id="nicMask" prefWidth="75.0" text="서브넷 마스크" />
+          <TableColumn fx:id="nicGate" prefWidth="75.0" text="게이트웨이" />
+          <TableColumn fx:id="nicDns01" prefWidth="75.0" text="주 DNS" />
+          <TableColumn fx:id="nicDns02" prefWidth="75.0" text="보조 DNS" />
+          <TableColumn fx:id="nicInfo" prefWidth="75.0" text="정보변경" />
+          <TableColumn fx:id="selNic" prefWidth="75.0" text="적용" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -37,23 +37,23 @@ public class ListNets {
 	private synchronized List<Nic> searchNicLists() {
 		try {
 			// 타이틀
-			Map<String, List<String>> info = new HashMap<>();
+//			Map<String, List<String>> info = new HashMap<>();
 			// IP 주소
-			List<String> content = new ArrayList<>();
+//			List<String> content = new ArrayList<>();
 			
 			
 			// 정규식 설정
-			String reg = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
-			Pattern pattern = Pattern.compile(reg);
-			Matcher matcher;
+//			String reg = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
+//			Pattern pattern = Pattern.compile(reg);
+//			Matcher matcher;
 			
 			// CMD 실행하기
 			Process proc = Runtime.getRuntime().exec("ipconfig /all");
 			BufferedReader br = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 			
 			String line = null;
-			String prefix = null;
-			String postfix = null;
+//			String prefix = null;
+//			String postfix = null;
 			String lineTemp = null;
 			
 			// 문자열 거르기
@@ -86,6 +86,7 @@ public class ListNets {
 			System.exit(1);
 		}
 		
+		// 임시
 		this.nicTemp = new ArrayList<Nic>();
 		this.nicTemp.add(new Nic(
 				"KT INTRA-NET", // nicKind
@@ -95,7 +96,8 @@ public class ListNets {
 				"192.168.0.1", // nicGate
 				"168.128.64.1", // nicDns01
 				"", // nicDns02
-				"Wi-Fi"// nicInfo 
+				"Wi-Fi",// nicInfo
+				true
 		));
 		
 		return this.nicTemp;

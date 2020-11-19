@@ -7,11 +7,14 @@ import ch.get.fx.ApplicationStart;
 import ch.get.fx.controller.TableDataSetController;
 import ch.get.fx.controller.WindowController;
 import ch.get.fx.model.Nic;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.util.Callback;
 
 public class RootLayoutController implements Initializable{
 	
@@ -38,6 +41,8 @@ public class RootLayoutController implements Initializable{
 	private TableColumn<Nic, String> nicDns02;
 	@FXML
 	private TableColumn<Nic, String> nicInfo;
+	@FXML
+	private TableColumn<Nic, Boolean> selNic;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -65,6 +70,19 @@ public class RootLayoutController implements Initializable{
 		
 		nicInfo.setCellValueFactory(cellData -> cellData.getValue().getNicInfo());
 		tableDatCont.commitData(nicInfo);
+		
+		// CheckBox
+		selNic.setCellFactory(new Callback<TableColumn<Nic,Boolean>, TableCell<Nic,Boolean>>() {
+			@Override
+			public TableCell<Nic, Boolean> call(TableColumn<Nic, Boolean> param) {
+				CheckBoxTableCell<Nic, Boolean> cell = new CheckBoxTableCell<Nic, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		// Input CheckBox Data
+		selNic.setCellValueFactory(cellData -> cellData.getValue().getSelNic());
+		
 		// 컬럼 셋팅 끝
 		ApplicationStart.LOG.info("### INIT_ROOT_CONTROLLER [ " + Thread.currentThread().getName() + " ]");
 				
@@ -87,7 +105,8 @@ public class RootLayoutController implements Initializable{
 				"192.168.0.1", // nicGate
 				"168.128.64.1", // nicDns01
 				"", // nicDns02
-				"Wi-Fi"// nicInfo 
+				"Wi-Fi",// nicInfo
+				false
 		));
 	}
 	
