@@ -52,26 +52,26 @@ public class TableDataSetController {
         });
 	}
 	
-	public void commitCheckBoxData(TableColumn<Nic, Boolean> column) {
-		// 더블클릭 셀 에딧 기능 추가
-		column.setCellFactory(CheckBoxTableCell.forTableColumn(column));
-		// 수정후 해당 셀의 모델 인스턴스 원본 데이터 변경
-		System.out.println("심각");
-		column.setOnEditCommit((CellEditEvent<Nic, Boolean> event) -> {
-            TablePosition<Nic, Boolean> pos = event.getTablePosition();
- 
-            boolean newValue = event.getNewValue();
- 
-            int row = pos.getRow();
-            Nic nic = event.getTableView().getItems().get(row);
-
-            ApplicationStart.LOG.severe("######## CELL NewValue : " + event.getNewValue());
-            ApplicationStart.LOG.severe("######## CELL OldValue : " + event.getOldValue());
-            ApplicationStart.LOG.severe("######## CELL RowValue : " + event.getTablePosition().getRow());
-            ApplicationStart.LOG.severe("######## CELL ColumnValue : " + event.getTablePosition().getColumn());
-//            ApplicationStart.LOG.severe("######## CELL Data : " + nic.getNicName());
-        });
-	}
+//	public void commitCheckBoxData(TableColumn<Nic, Boolean> column) {
+//		// 더블클릭 셀 에딧 기능 추가
+//		column.setCellFactory(CheckBoxTableCell.forTableColumn(column));
+//		// 수정후 해당 셀의 모델 인스턴스 원본 데이터 변경
+//		System.out.println("심각");
+//		column.setOnEditCommit((CellEditEvent<Nic, Boolean> event) -> {
+//            TablePosition<Nic, Boolean> pos = event.getTablePosition();
+// 
+//            boolean newValue = event.getNewValue();
+// 
+//            int row = pos.getRow();
+//            Nic nic = event.getTableView().getItems().get(row);
+//
+//            ApplicationStart.LOG.severe("######## CELL NewValue : " + event.getNewValue());
+//            ApplicationStart.LOG.severe("######## CELL OldValue : " + event.getOldValue());
+//            ApplicationStart.LOG.severe("######## CELL RowValue : " + event.getTablePosition().getRow());
+//            ApplicationStart.LOG.severe("######## CELL ColumnValue : " + event.getTablePosition().getColumn());
+////            ApplicationStart.LOG.severe("######## CELL Data : " + nic.getNicName());
+//        });
+//	}
 	
 	/*
 	 * Getter / Setter
