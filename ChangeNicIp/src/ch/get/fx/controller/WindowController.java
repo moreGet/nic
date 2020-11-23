@@ -32,6 +32,7 @@ public class WindowController {
 	}
 	
 	public void changeNicInfo(Nic nicTemp) {
+		boolean changeResult = false;
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("네트워크 정보 교체");
 		alert.setHeaderText(nicTemp.toString());
@@ -40,6 +41,11 @@ public class WindowController {
 		
 		if (alert.getResult().equals(ButtonType.OK)) {
 			System.out.println("확인창 결과 : " + alert.getResult().getText());
+			changeResult = listNets.getNicTemp();
+			
+			if (changeResult) {
+				System.out.println("바뀜");
+			}
 		}	
 	}
 	
