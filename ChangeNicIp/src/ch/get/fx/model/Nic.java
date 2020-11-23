@@ -108,5 +108,15 @@ public class Nic {
 	public void setSelNic(boolean selNic) {
 		this.selNic.setValue(selNic);
 	}
+	
+	@Override
+	public String toString() {
+		String content = 
+				"용도 : "+this.nicKind.getValue()
+				+"\n랜카드 종류 : "+this.nicName.getValue()
+				+"\n논리 주소 : "+this.nicIp.getValue();
+		
+		return content;
+	}
 }
 

@@ -2,22 +2,21 @@ package ch.get.fx.view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import ch.get.fx.ApplicationStart;
 import ch.get.fx.controller.TableDataSetController;
 import ch.get.fx.controller.WindowController;
 import ch.get.fx.model.Nic;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.util.Callback;
 
 public class RootLayoutController implements Initializable{
 	
+	public final static Logger log = Logger.getGlobal();
 	// 테이블 컨트롤러
 	private TableDataSetController tableDatCont = TableDataSetController.getInstance();
 	// 윈도우 컨트롤러
@@ -72,16 +71,18 @@ public class RootLayoutController implements Initializable{
 		tableDatCont.commitData(nicInfo);
 		
 		// CheckBox
-		selNic.setCellFactory(new Callback<TableColumn<Nic,Boolean>, TableCell<Nic,Boolean>>() {
-			@Override
-			public TableCell<Nic, Boolean> call(TableColumn<Nic, Boolean> param) {
-				CheckBoxTableCell<Nic, Boolean> cell = new CheckBoxTableCell<Nic, Boolean>();
-				cell.setAlignment(Pos.CENTER);
-				return cell;
-			}
+		tableDatCont.addCheckBoxInCell(selNic);		
+		// Add Listener CheckBox
+		selNic.setCellValueFactory(cellData -> {
+			Nic nic = cellData.getValue();
+			SimpleBooleanProperty boolProp = new SimpleBooleanProperty(nic.getSelNic().get());
+			
+			boolProp.addListener((ob, oV, nV) -> {
+				log.severe("상태 : " + nV);
+				winCont.changeNicInfo(nic);
+			});
+			return boolProp;
 		});
-		// Input CheckBox Data
-		selNic.setCellValueFactory(cellData -> cellData.getValue().getSelNic());
 		
 		// 컬럼 셋팅 끝
 		ApplicationStart.LOG.info("### INIT_ROOT_CONTROLLER [ " + Thread.currentThread().getName() + " ]");

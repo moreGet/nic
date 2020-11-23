@@ -95,7 +95,7 @@ public class ListNets {
 				"255.255.255.0", // nicMask
 				"192.168.0.1", // nicGate
 				"168.128.64.1", // nicDns01
-				"", // nicDns02
+				"0.0.0.0", // nicDns02
 				"Wi-Fi",// nicInfo
 				true
 		));
