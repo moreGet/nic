@@ -98,17 +98,22 @@ public class RootLayoutController implements Initializable{
 	
 	@FXML
 	private void onClickedAdd() {
-		tableDatCont.getNicData().add(new Nic(
-				"KT INTRA-NET", // nicKind
-				"INTEL WIFI", // nicName
-				"127.0.0.1", // nicIp
-				"255.255.255.0", // nicMask
-				"192.168.0.1", // nicGate
-				"168.128.64.1", // nicDns01
-				"", // nicDns02
-				"Wi-Fi",// nicInfo
-				false
-		));
+//		tableDatCont.getNicData().add(new Nic(
+//				"KT INTRA-NET", // nicKind
+//				"INTEL WIFI", // nicName
+//				"127.0.0.1", // nicIp
+//				"255.255.255.0", // nicMask
+//				"192.168.0.1", // nicGate
+//				"168.128.64.1", // nicDns01
+//				"", // nicDns02
+//				"Wi-Fi",// nicInfo
+//				false
+//		));
+		
+		boolean submit = winCont.addNicInfo();
+		if (submit) {
+			System.out.println("등록창 성공");
+		}
 	}
 	
 	@FXML

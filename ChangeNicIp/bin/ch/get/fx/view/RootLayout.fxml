@@ -12,14 +12,15 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" onAction="#onClickedExit" text="파일">
+          <Menu mnemonicParsing="false" text="파일">
             <items>
-              <MenuItem mnemonicParsing="false" text="닫기" />
+              <MenuItem mnemonicParsing="false" onAction="#onClickedAdd" text="추가" />
+                  <MenuItem mnemonicParsing="false" onAction="#onClickedExit" text="닫기" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="수정">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#onClickedAdd" text="항목 삭제" />
+              <MenuItem mnemonicParsing="false" text="항목 삭제" />
                   <MenuItem mnemonicParsing="false" onAction="#searchNicInfo" text="랜카드 검색">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
@@ -44,7 +45,7 @@
           <TableColumn fx:id="nicGate" prefWidth="75.0" text="게이트웨이" />
           <TableColumn fx:id="nicDns01" prefWidth="75.0" text="주 DNS" />
           <TableColumn fx:id="nicDns02" prefWidth="75.0" text="보조 DNS" />
-          <TableColumn fx:id="nicInfo" prefWidth="75.0" text="정보변경" />
+          <TableColumn fx:id="nicInfo" prefWidth="75.0" text="설명" />
           <TableColumn fx:id="selNic" prefWidth="75.0" text="적용" />
         </columns>
          <columnResizePolicy>

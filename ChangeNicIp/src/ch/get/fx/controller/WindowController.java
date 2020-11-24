@@ -1,5 +1,6 @@
 package ch.get.fx.controller;
 
+import ch.get.fx.ApplicationStart;
 import ch.get.fx.model.Nic;
 import ch.get.fx.util.ListNets;
 import javafx.application.Platform;
@@ -11,6 +12,8 @@ public class WindowController {
 	
 	// 랜카드 정보
 	private ListNets listNets = ListNets.getInstance();
+	// Main Instance
+	private ApplicationStart mainApp;
 	
 	private WindowController() {
 		
@@ -49,7 +52,16 @@ public class WindowController {
 		}	
 	}
 	
+	public boolean addNicInfo() {
+		return mainApp.initNicOverViewLayout();
+	}
+
 	public void search() {
-		listNets.getNicTemp();
+//		listNets.getNicTemp();
+	}
+	
+	// Setter
+	public void setMainApp(ApplicationStart mainApp) {
+		this.mainApp = mainApp;
 	}
 }

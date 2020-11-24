@@ -4,16 +4,19 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import ch.get.fx.controller.TableDataSetController;
+import ch.get.fx.controller.WindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ApplicationStart extends Application {
 	// INIT INSTANCE
-//	private static WindowController windowCont = WindowController.getInstance();
-//	private static TableDataSetController tableCont = TableDataSetController.getInstance();
+	private static WindowController windowCont = WindowController.getInstance();
+	private static TableDataSetController tableCont = TableDataSetController.getInstance();
 	
 	// Logger
 	public final static Logger LOG = Logger.getGlobal();
@@ -21,9 +24,12 @@ public class ApplicationStart extends Application {
 	private Stage primaStage;
 	// view.RootLayout.fxml
 	private BorderPane rootLayout;
+	// view.NicOverViewLayout.fxml
+	private VBox overViewLayout;
 	
 	@Override
 	public void start(Stage primaryStage) {
+		windowCont.setMainApp(this); // init Main App
 		this.primaStage = primaryStage;
 		this.primaStage.setTitle("NIC IP 변환기");
 		this.primaStage.setResizable(true);
@@ -53,5 +59,27 @@ public class ApplicationStart extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean initNicOverViewLayout() {
+		
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(ApplicationStart.class.getResource("view/NicOverViewLayout.fxml"));
+			overViewLayout = (VBox) loader.load();
+			
+			// scene 등록
+			Stage stage = new Stage();
+			Scene scene = new Scene(overViewLayout);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.setTitle("랜카드 정보 등록");
+			stage.initOwner(primaStage);
+			stage.showAndWait();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return true;
 	}
 }
