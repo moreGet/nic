@@ -6,11 +6,13 @@ import java.util.logging.Logger;
 
 import ch.get.fx.controller.TableDataSetController;
 import ch.get.fx.controller.WindowController;
+import ch.get.fx.view.NicOverViewLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ApplicationStart extends Application {
@@ -61,25 +63,29 @@ public class ApplicationStart extends Application {
 		}
 	}
 	
+	// NIC 정보등록
 	public boolean initNicOverViewLayout() {
-		
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(ApplicationStart.class.getResource("view/NicOverViewLayout.fxml"));
 			overViewLayout = (VBox) loader.load();
+			NicOverViewLayoutController cont = loader.getController();
 			
 			// scene 등록
 			Stage stage = new Stage();
+			cont.setOverViewStage(stage);
 			Scene scene = new Scene(overViewLayout);
 			stage.setScene(scene);
 			stage.setResizable(false);
 			stage.setTitle("랜카드 정보 등록");
+			stage.initModality(Modality.WINDOW_MODAL);
 			stage.initOwner(primaStage);
 			stage.showAndWait();
+			
+			return cont.isOkClicked(); 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		return true;
+			return false;
+		}		
 	}
 }

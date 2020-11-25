@@ -112,7 +112,9 @@ public class RootLayoutController implements Initializable{
 		
 		boolean submit = winCont.addNicInfo();
 		if (submit) {
-			System.out.println("등록창 성공");
+			System.out.println("등록 버튼");
+		} else {
+			System.out.println("취소 버튼");
 		}
 	}
 	

@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 
 public class WindowController {
 	
@@ -32,6 +33,10 @@ public class WindowController {
 	 */
 	public void exit() {
 		Platform.exit();
+	}
+	
+	public void close(Stage stage) {		
+		stage.close();
 	}
 	
 	public void changeNicInfo(Nic nicTemp) {
