@@ -35,14 +35,14 @@
             <Label text="주 DNS" GridPane.rowIndex="5" />
             <Label text="보조 DNS" GridPane.rowIndex="6" />
             <Label text="설명" GridPane.rowIndex="7" />
-            <TextField fx:id="nicKind" GridPane.columnIndex="1" />
-            <TextField fx:id="nicName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="nicIp" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="nicMask" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="nicGate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="nicDns01" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="nicKind" promptText="예) KT INTRANET" GridPane.columnIndex="1" />
+            <TextField fx:id="nicName" promptText="예) ipconfig 도출 값" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="nicIp" promptText="예) 192.168.0.15" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="nicMask" promptText="예) 255.255.255.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="nicGate" promptText="예) 192.168.0.1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="nicDns01" promptText="예) 8.8.8.8" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="nicDns02" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="nicInfo" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="nicInfo" promptText="예) KT 로컬IP" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label text="랜카드 이름" GridPane.rowIndex="1" />
          </children>
       </GridPane>

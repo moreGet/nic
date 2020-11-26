@@ -1,8 +1,10 @@
 package ch.get.fx.view;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import ch.get.fx.controller.TableDataSetController;
 import ch.get.fx.controller.WindowController;
@@ -13,6 +15,8 @@ import javafx.stage.Stage;
 
 public class NicOverViewLayoutController implements Initializable {
 	
+	// IP정규 표현식
+	private String ipRegx = "((\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5])([.](?!$)|$)){4}";
 	public final static Logger log = Logger.getGlobal();
 	// 테이블 컨트롤러
 	private TableDataSetController tableDatCont = TableDataSetController.getInstance();
@@ -53,7 +57,15 @@ public class NicOverViewLayoutController implements Initializable {
 	@FXML
 	private void handleOkClicked() {
 //		printTextField();
-		isOkClicked = true;
+		boolean vaildRegx = Pattern.matches(ipRegx, nicIp.getText());
+		
+		if (vaildRegx) {
+			isOkClicked = true;
+			winCont.close(overViewStage);
+		} else {
+			winCont.showAlert("IP범위를 벗어남", nicIp.getText(), "논리주소 필드를 확인해 주세요.");
+			nicIp.requestFocus();
+		}
 	}
 	
 	public boolean isOkClicked() {

@@ -31,6 +31,16 @@ public class WindowController {
 	/*
 	 * 기능
 	 */
+	public Alert showAlert(String title, String header, String content) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(content);
+		alert.showAndWait();
+		
+		return alert;
+	}
+	
 	public void exit() {
 		Platform.exit();
 	}
@@ -41,11 +51,7 @@ public class WindowController {
 	
 	public void changeNicInfo(Nic nicTemp) {
 		boolean changeResult = false;
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("네트워크 정보 교체");
-		alert.setHeaderText(nicTemp.toString());
-		alert.setContentText("네트워크 정보를 바꾸시겠습니까?");
-		alert.showAndWait();
+		Alert alert = showAlert("네트워크 정보 교체", nicTemp.toString(), "네트워크 정보를 바꾸시겠습니까?");
 		
 		if (alert.getResult().equals(ButtonType.OK)) {
 			System.out.println("확인창 결과 : " + alert.getResult().getText());
