@@ -17,6 +17,10 @@ public class Nic {
 	private final StringProperty nicInfo; // 설명
 	private final BooleanProperty selNic; // 현재 적용 되어있는 인터페이스 정보
 	
+	public Nic() {
+		this(null, null, null, null, null, null, null, null, false);
+	}
+
 	public Nic(String nicKind, String nicName, String nicIp, String nicMask, String nicGate,
 			String nicDns01, String nicDns02, String nicInfo, Boolean selNic) {
 		

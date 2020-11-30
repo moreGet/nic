@@ -3,6 +3,7 @@ package ch.get.fx.view;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -16,7 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class NicOverViewLayoutController implements Initializable {
-	
+	// 싱글톤
+	public static NicOverViewLayoutController instance;
 	// IP정규 표현식
 	private String ipRegx = "((\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5])([.](?!$)|$)){4}";
 	public final static Logger log = Logger.getGlobal();
@@ -49,7 +51,7 @@ public class NicOverViewLayoutController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		instance = this;
 	}
 	
 	@FXML
@@ -60,30 +62,46 @@ public class NicOverViewLayoutController implements Initializable {
 
 	@FXML
 	private void handleOkClicked() {
-//		printTextField();
-		ArrayList<TextField> list = new ArrayList<TextField>(
-				Arrays.asList(nicName, nicIp, nicMask, nicGate, nicDns01, nicDns02));
+//		printTextField();		
+		// 필수 값
+		ArrayList<TextField> mandatoryList = new ArrayList<TextField>(
+				Arrays.asList(nicIp, nicMask, nicGate, nicDns01));
+		
+		// 선택 값
+		ArrayList<TextField> optinalList = new ArrayList<TextField>(
+				Arrays.asList(nicName, nicKind, nicDns02, nicInfo));
 		
 		// IP 유효성 검사
-		for (TextField textField : list) {
+		for (TextField textField : mandatoryList) {
 			boolean vaildRegx = Pattern.matches(ipRegx, textField.getText());
-			if (vaildRegx) {
-				isOkClicked = true;
-				nic.setNicKind(nicKind.getText());
-				nic.setNicName(nicName.getText());
-				nic.setNicIp(nicIp.getText());
-				nic.setNicMask(nicMask.getText());
-				nic.setNicGate(nicGate.getText());
-				nic.setNicDns01(nicDns01.getText());
-				nic.setNicDns02(nicDns02.getText());
-				nic.setNicInfo(nicInfo.getText());
-				winCont.close(overViewStage);
-			} else {
+			if (!vaildRegx) {
 				winCont.showAlert("IP범위를 벗어남", textField.getText(), "논리주소 필드를 확인해 주세요.");
-				nicIp.requestFocus();
+				textField.requestFocus();
 				return;
 			}
 		}
+		
+		String text = null;
+		for (TextField textField : optinalList) {
+			text = Optional.ofNullable(textField.getText())
+								.filter(value -> value.length() > 0)
+								.orElse("Default Value");
+			
+			textField.setText(text);
+		}
+		
+		nic = new Nic();
+		isOkClicked = true;
+		nic.setNicKind(nicKind.getText());
+		nic.setNicName(nicName.getText());
+		nic.setNicIp(nicIp.getText());
+		nic.setNicMask(nicMask.getText());
+		nic.setNicGate(nicGate.getText());
+		nic.setNicDns01(nicDns01.getText());
+		nic.setNicDns02(nicDns02.getText());
+		nic.setNicInfo(nicInfo.getText());
+		nic.setSelNic(false);
+		winCont.close(overViewStage);
 	}
 	
 	public boolean isOkClicked() {

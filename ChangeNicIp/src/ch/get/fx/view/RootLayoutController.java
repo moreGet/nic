@@ -1,6 +1,7 @@
 package ch.get.fx.view;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -15,7 +16,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class RootLayoutController implements Initializable{
-	
+	// 싱글톤
+	public static RootLayoutController instance;
 	public final static Logger log = Logger.getGlobal();
 	// 테이블 컨트롤러
 	private TableDataSetController tableDatCont = TableDataSetController.getInstance();
@@ -45,6 +47,8 @@ public class RootLayoutController implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		instance = this;
+		
 		// 기본값 셋팅
 		nicKind.setCellValueFactory(cellData -> cellData.getValue().getNicKind());
 		tableDatCont.commitData(nicKind);
@@ -100,9 +104,20 @@ public class RootLayoutController implements Initializable{
 	private void onClickedAdd() {
 		boolean isOkay = winCont.addNicInfo();
 		
-		if (isOkay) {
-//			tableDatCont.getNicData().add()
+		if (isOkay) { // 랜카드 추가 버튼
+			tableDatCont.getNicData().add(NicOverViewLayoutController.instance.getNic());
 		}
+	}
+	
+	@FXML
+	private void onClickedDelete() {
+		int selectedItem = nicTable.getSelectionModel().getSelectedIndex();
+		
+		Optional.ofNullable(selectedItem)
+				.filter(idx -> idx.intValue() >= 0)
+				.ifPresent(idx -> {
+					nicTable.getItems().remove(idx.intValue());
+				});
 	}
 	
 	@FXML

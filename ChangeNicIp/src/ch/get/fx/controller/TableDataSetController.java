@@ -19,7 +19,7 @@ public class TableDataSetController {
 	
 	private TableDataSetController() {
 		// 더미 데이터
-		nicData.add(new Nic("KT INTRA-NET", "INTEL WIFI", "127.0.0.1", "255.255.255.0", "192.168.0.1", "168.128.64.1", "", "Wi-Fi", false));
+		nicData.add(new Nic("KT INTRA-NET1", "INTEL WIFI", "127.0.0.1", "255.255.255.0", "192.168.0.1", "168.128.64.1", "", "Wi-Fi", false));
 	}
 	
 	private static class LazyHolder {
