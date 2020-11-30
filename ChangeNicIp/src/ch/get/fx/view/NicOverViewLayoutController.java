@@ -14,6 +14,7 @@ import ch.get.fx.model.Nic;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class NicOverViewLayoutController implements Initializable {
@@ -75,7 +76,7 @@ public class NicOverViewLayoutController implements Initializable {
 		for (TextField textField : mandatoryList) {
 			boolean vaildRegx = Pattern.matches(ipRegx, textField.getText());
 			if (!vaildRegx) {
-				winCont.showAlert("IP범위를 벗어남", textField.getText(), "논리주소 필드를 확인해 주세요.");
+				winCont.showAlert("IP범위를 벗어남", textField.getText(), "논리주소 필드를 확인해 주세요.", AlertType.WARNING);
 				textField.requestFocus();
 				return;
 			}

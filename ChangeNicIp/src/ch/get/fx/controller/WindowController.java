@@ -31,11 +31,12 @@ public class WindowController {
 	/*
 	 * 기능
 	 */
-	public Alert showAlert(String title, String header, String content) {
+	public Alert showAlert(String title, String header, String content, AlertType alertType) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle(title);
 		alert.setHeaderText(header);
 		alert.setContentText(content);
+		alert.setAlertType(alertType);
 		alert.showAndWait();
 		
 		return alert;
@@ -51,14 +52,17 @@ public class WindowController {
 	
 	public void changeNicInfo(Nic nicTemp) {
 		boolean changeResult = false;
-		Alert alert = showAlert("네트워크 정보 교체", nicTemp.toString(), "네트워크 정보를 바꾸시겠습니까?");
+		Alert alert = showAlert("네트워크 정보 교체", nicTemp.toString(), "네트워크 정보를 바꾸시겠습니까?", AlertType.CONFIRMATION);
 		
 		if (alert.getResult().equals(ButtonType.OK)) {
-			System.out.println("확인창 결과 : " + alert.getResult().getText());
+			// 바뀌었는가?
 			changeResult = listNets.getNicTemp();
 			
+			// 바뀌었다면..
 			if (changeResult) {
 				System.out.println("바뀜");
+			} else {
+				System.out.println("에러");
 			}
 		}	
 	}

@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import ch.get.fx.controller.WindowController;
 import ch.get.fx.model.Nic;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * @author Get
@@ -42,15 +43,16 @@ public class ListNets {
 				BufferedReader br = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 				
 				while ((msg = br.readLine()) != null) {
-					System.out.println(msg);
+					if (msg.contains("관리자")) {
+						throw new Exception();
+					}
 				}
 			}
 			
 			return true;
 		} catch (Exception e) {
 			WindowController.getInstance()
-							.showAlert("관리자 권한이 필요합니다.", "권한이 없습니다.", "관리자 권한으로 프로그램을 실행시켜 주세요.");
-			e.printStackTrace();
+							.showAlert("관리자 권한이 필요합니다.", "권한이 없습니다.", "관리자 권한으로 프로그램을 실행시켜 주세요.", AlertType.INFORMATION);
 			return false;
 		}
 	}

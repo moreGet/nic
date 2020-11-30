@@ -82,7 +82,7 @@ public class RootLayoutController implements Initializable{
 			SimpleBooleanProperty boolProp = new SimpleBooleanProperty(nic.getSelNic().get());
 			
 			boolProp.addListener((ob, oV, nV) -> {
-				log.severe("상태 : " + nV);
+//				log.severe("상태 : " + nV);
 				winCont.changeNicInfo(nic);
 			});
 			return boolProp;
