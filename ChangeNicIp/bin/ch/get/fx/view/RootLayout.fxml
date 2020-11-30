@@ -19,7 +19,7 @@
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="수정">
-            <items>
+            <items>  
               <MenuItem mnemonicParsing="false" text="항목 삭제" />
                   <MenuItem mnemonicParsing="false" onAction="#searchNicInfo" text="랜카드 검색">
                      <accelerator>
