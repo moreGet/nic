@@ -39,7 +39,7 @@ public class ListNets {
 			nicInterfaceInfo = switchIntraNet(nicTemp); // 체크가 되면 인트라넷
 		} else {
 //			System.out.println("인터넷");
-			nicInterfaceInfo = switchInterNet(); // 아니라면 인터넷
+			nicInterfaceInfo = switchInterNet(nicTemp); // 아니라면 인터넷
 		}
 		
 		try {
@@ -49,9 +49,10 @@ public class ListNets {
 					System.out.print(strings + " ");
 				}
 				System.out.println();
-//				if (!vaildAdminPermit(command)) {
-//					throw new Exception();
-//				}
+				
+				if (!vaildAdminPermit(command)) {
+					throw new Exception();
+				}
 			}
 			changeOkay = true;
 		} catch (Exception e) {
@@ -66,25 +67,23 @@ public class ListNets {
 	}
 	
 	// 인터넷 스위치
-	private List<String[]> switchInterNet() {
-		String nicName = "이더넷";
+	private List<String[]> switchInterNet(Nic nic) {
+		String nicName = nic.getNicName().get();
 		
         String[] ip = { "netsh", "interface", "ip", "set", "address",
         "name=", nicName ,"source=dhcp"};
         
-        String[] dns = { "netsh", "interface", "ip", "set", "address",
+        String[] dns = { "netsh", "interface", "ip", "set", "dns",
         "name=", nicName ,"source=dhcp", "register=PRIMARY"};
         
-        String[] dns2 = { "netsh", "interface", "ip", "set", "address",
-                "name=", nicName ,"source=dhcp", "register=PRIMARY"};
-        
-        String[] wins = { "netsh", "interface", "ip", "set", "address",
+        String[] wins = { "netsh", "interface", "ip", "set", "wins",
         "name=", nicName ,"source=dhcp"};
         
-        return Arrays.asList(ip, dns, dns2, wins);
+        return Arrays.asList(ip, dns, wins);
 	}
 	
 	// 인트라넷 스위치
+	// 바꿀때 IP 만맞으면 매개변수 틀리다고 나옴
 	private List<String[]> switchIntraNet(Nic nicTemp) {
 		String nicName = nicTemp.getNicName().get();
 		String nicIp = nicTemp.getNicIp().get();
@@ -94,15 +93,15 @@ public class ListNets {
 		String nicDns02 = nicTemp.getNicDns02().get();
 
         String[] ip = { "netsh", "interface", "ip", "set", "address",
-        "name=", nicName ,"source=static", "addr=",nicIp,
-        "gateway=", nicGate,
-        "mask=", nicMask};
+        "name=",nicName ,"source=static", "addr=",nicIp,
+        "gateway=",nicGate,
+        "mask=",nicMask};
 		
         String[] dns = { "netsh", "interface", "ip", "set", "dns",
-        "name=", nicName ,"source=static", "addr=",nicDns01};
+        "name=",nicName ,"source=static", "addr=",nicDns01};
         
-        String[] dns2 = { "netsh", "interface", "ip", "set", "dns2",
-        "name=", nicName ,"source=static", "addr=",nicDns02};
+        String[] dns2 = { "netsh", "interface", "ip", "add", "dns",
+        "name=",nicName ,nicDns02};
         
         return Arrays.asList(ip, dns, dns2);
 	}
@@ -113,6 +112,8 @@ public class ListNets {
 		BufferedReader br = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 		
 		while ((msg = br.readLine()) != null) {
+			System.out.println(msg);
+			
 			if (msg.contains("관리자")) {
 				System.out.println(msg);
 				return false;
