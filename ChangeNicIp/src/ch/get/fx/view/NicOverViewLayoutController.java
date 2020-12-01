@@ -8,9 +8,11 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
+import ch.get.fx.ApplicationStart;
 import ch.get.fx.controller.TableDataSetController;
 import ch.get.fx.controller.WindowController;
 import ch.get.fx.model.Nic;
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -24,9 +26,9 @@ public class NicOverViewLayoutController implements Initializable {
 	private String ipRegx = "((\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5])([.](?!$)|$)){4}";
 	public final static Logger log = Logger.getGlobal();
 	// 테이블 컨트롤러
-	private TableDataSetController tableDatCont = TableDataSetController.getInstance();
+	private TableDataSetController tableDatCont;
 	// 윈도우 컨트롤러
-	private WindowController winCont = WindowController.getInstance();
+	private WindowController winCont;
 	private Stage overViewStage;
 	private boolean isOkClicked;
 	// Nic데이터
@@ -53,6 +55,8 @@ public class NicOverViewLayoutController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		instance = this;
+		tableDatCont = ApplicationStart.tableCont;
+		winCont = ApplicationStart.windowCont;
 	}
 	
 	@FXML
@@ -131,5 +135,13 @@ public class NicOverViewLayoutController implements Initializable {
 
 	public void setOverViewStage(Stage overViewStage) {
 		this.overViewStage = overViewStage;
+	}
+
+	public void setTableDatCont(TableDataSetController tableDatCont) {
+		this.tableDatCont = tableDatCont;
+	}
+
+	public void setWinCont(WindowController winCont) {
+		this.winCont = winCont;
 	}
 }

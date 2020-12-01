@@ -20,9 +20,9 @@ public class RootLayoutController implements Initializable{
 	public static RootLayoutController instance;
 	public final static Logger log = Logger.getGlobal();
 	// 테이블 컨트롤러
-	private TableDataSetController tableDatCont = TableDataSetController.getInstance();
+	private TableDataSetController tableDatCont;
 	// 윈도우 컨트롤러
-	private WindowController winCont = WindowController.getInstance();
+	private WindowController winCont;
 	
 	@FXML
 	private TableView<Nic> nicTable;
@@ -48,6 +48,8 @@ public class RootLayoutController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		instance = this;
+		tableDatCont = ApplicationStart.tableCont;
+		winCont = ApplicationStart.windowCont;
 		
 		// 기본값 셋팅
 		nicKind.setCellValueFactory(cellData -> cellData.getValue().getNicKind());
@@ -83,7 +85,7 @@ public class RootLayoutController implements Initializable{
 			
 			boolProp.addListener((ob, oV, nV) -> {
 //				log.severe("상태 : " + nV);
-				winCont.changeNicInfo(nic);
+				winCont.changeNicInfo(nic, nV);
 			});
 			return boolProp;
 		});

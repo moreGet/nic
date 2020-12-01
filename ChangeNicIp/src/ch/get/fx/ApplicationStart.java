@@ -6,7 +6,9 @@ import java.util.logging.Logger;
 
 import ch.get.fx.controller.TableDataSetController;
 import ch.get.fx.controller.WindowController;
+import ch.get.fx.util.ListNets;
 import ch.get.fx.view.NicOverViewLayoutController;
+import ch.get.fx.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,8 +19,11 @@ import javafx.stage.Stage;
 
 public class ApplicationStart extends Application {
 	// INIT INSTANCE
-	private static WindowController windowCont = WindowController.getInstance();
-	private static TableDataSetController tableCont = TableDataSetController.getInstance();
+	public static WindowController windowCont; 
+	public static TableDataSetController tableCont;
+	public static ListNets listNet;
+	public static NicOverViewLayoutController nicCont;
+	public static RootLayoutController rootCont;
 	
 	// Logger
 	public final static Logger LOG = Logger.getGlobal();
@@ -31,7 +36,15 @@ public class ApplicationStart extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
+		// INSTANCE INIT
+		windowCont = WindowController.getInstance();
+		tableCont = TableDataSetController.getInstance();
+		listNet = ListNets.getInstance();
+		
+		// INSTANCE SETTER INPUT
 		windowCont.setMainApp(this); // init Main App
+		windowCont.setListNets(listNet);
+		
 		this.primaStage = primaryStage;
 		this.primaStage.setTitle("NIC IP 변환기");
 		this.primaStage.setResizable(true);
@@ -58,6 +71,9 @@ public class ApplicationStart extends Application {
 			Scene scene = new Scene(rootLayout);
 			primaStage.setScene(scene);
 			primaStage.show();
+			
+			// 컨트롤러 셋팅
+			rootCont = (RootLayoutController) loader.getController();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -69,11 +85,11 @@ public class ApplicationStart extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(ApplicationStart.class.getResource("view/NicOverViewLayout.fxml"));
 			overViewLayout = (VBox) loader.load();
-			NicOverViewLayoutController cont = loader.getController();
+			nicCont = loader.getController();
 			
 			// scene 등록
 			Stage stage = new Stage();
-			cont.setOverViewStage(stage);
+			nicCont.setOverViewStage(stage);
 			Scene scene = new Scene(overViewLayout);
 			stage.setScene(scene);
 			stage.setResizable(false);
@@ -82,7 +98,7 @@ public class ApplicationStart extends Application {
 			stage.initOwner(primaStage);
 			stage.showAndWait();
 			
-			return cont.isOkClicked(); 
+			return nicCont.isOkClicked(); 
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

@@ -21,7 +21,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="수정">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#searchNicInfo" text="랜카드 검색">
+                  <MenuItem mnemonicParsing="false" text="랜카드 검색">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="G" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
