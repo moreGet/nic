@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import ch.get.fx.common.CommandError;
 import ch.get.fx.controller.WindowController;
 import ch.get.fx.model.Nic;
 import javafx.scene.control.Alert.AlertType;
@@ -28,41 +29,25 @@ public class ListNets {
 	/*
 	 * 기능
 	 */
-	private boolean changeNicInterface(Nic nicTemp, boolean selNicStatus) {
+	public boolean changeNicInterface(Nic nicTemp) {
 		boolean changeOkay = false; // NIC정보 바뀌었는지?
-		
 		// 체크 박스 유무에 따라 VPN인지 사내망 IP인지 정보를 가져와야 함
 		List<String[]> nicInterfaceInfo = new ArrayList<String[]>();
 		
-		if (selNicStatus) {
-//			System.out.println("인트라넷");
-			nicInterfaceInfo = switchIntraNet(nicTemp); // 체크가 되면 인트라넷
-		} else {
-//			System.out.println("인터넷");
-			nicInterfaceInfo = switchInterNet(nicTemp); // 아니라면 인터넷
-		}
+//		nicInterfaceInfo = switchIntraNet(nicTemp); // 체크가 되면 인트라넷
+		nicInterfaceInfo = switchInterNet(nicTemp); // 아니라면 인터넷
 		
 		try {
 			// 관리자 권한 보기
 			for (String[] command : nicInterfaceInfo) {
-				for (String strings : command) {
-					System.out.print(strings + " ");
-				}
-				System.out.println();
-				
 				if (!vaildAdminPermit(command)) {
 					throw new Exception();
 				}
 			}
 			changeOkay = true;
 		} catch (Exception e) {
-			WindowController.getInstance().showAlert(
-					"관리자 권한이 필요합니다.", 
-					"권한이 없습니다.", 
-					"관리자 권한으로 프로그램을 실행시켜 주세요.", 
-					AlertType.INFORMATION);
+//			e.printStackTrace();
 		}
-		
 		return changeOkay;
 	}
 	
@@ -107,26 +92,35 @@ public class ListNets {
 	}
 	
 	public synchronized boolean vaildAdminPermit(String[] command) throws Exception {
+		StringBuffer sb = new StringBuffer("");
 		String msg = "";
 		Process proc = Runtime.getRuntime().exec(command);
 		BufferedReader br = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 		
 		while ((msg = br.readLine()) != null) {
-			System.out.println(msg);
-			
-			if (msg.contains("관리자")) {
+			if (msg.contains(CommandError.ERROR_PERMIT.getErrorCode())) {
+				sb.append("관리자 권한이 필요 합니다.");
+			} else if(msg.contains(CommandError.ERROR_NIC_NAME.getErrorCode())) {
+				sb.append("네트워크 어댑터 이름이 정확한지 확인 하세요.");
+			} else if (msg.contains(CommandError.ERROR_ALREADY_DHCP.getErrorCode())) {
+				sb.append("이미 인터넷 설정이 되어 있습니다.");
+			} else {
 				System.out.println(msg);
+			}
+			
+			if (sb.length() > 0) {
+				WindowController.getInstance().showAlert(
+						"변경 불가", 
+						"아래 이유로 변경이 불가능 합니다.", 
+						sb.toString(), 
+						AlertType.ERROR);
 				return false;
 			}
 		}
-		
 		return true;
 	}
 	
 	/*
 	 * Getter
 	 */
-	public boolean getNicTemp(Nic nicTemp, boolean selNicStatus) {
-		return changeNicInterface(nicTemp, selNicStatus);
-	}
 }

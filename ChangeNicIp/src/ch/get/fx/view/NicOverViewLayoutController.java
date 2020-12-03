@@ -12,11 +12,10 @@ import ch.get.fx.ApplicationStart;
 import ch.get.fx.controller.TableDataSetController;
 import ch.get.fx.controller.WindowController;
 import ch.get.fx.model.Nic;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class NicOverViewLayoutController implements Initializable {
@@ -105,7 +104,7 @@ public class NicOverViewLayoutController implements Initializable {
 		nic.setNicDns01(nicDns01.getText());
 		nic.setNicDns02(nicDns02.getText());
 		nic.setNicInfo(nicInfo.getText());
-		nic.setSelNic(false);
+//		nic.setSelNic(false);
 		winCont.close(overViewStage);
 	}
 	

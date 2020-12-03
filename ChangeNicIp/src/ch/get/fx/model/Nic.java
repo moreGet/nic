@@ -1,7 +1,5 @@
 package ch.get.fx.model;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -15,14 +13,13 @@ public class Nic {
 	private final StringProperty nicDns01; // DNS 1번
 	private final StringProperty nicDns02; // DNS 2번
 	private final StringProperty nicInfo; // 설명
-	private final BooleanProperty selNic; // 현재 적용 되어있는 인터페이스 정보
 	
 	public Nic() {
-		this(null, null, null, null, null, null, null, null, false);
+		this(null, null, null, null, null, null, null, null);
 	}
-
+	
 	public Nic(String nicKind, String nicName, String nicIp, String nicMask, String nicGate,
-			String nicDns01, String nicDns02, String nicInfo, Boolean selNic) {
+			String nicDns01, String nicDns02, String nicInfo) {
 		
 		this.nicKind = new SimpleStringProperty(nicKind);
 		this.nicName = new SimpleStringProperty(nicName);
@@ -32,7 +29,6 @@ public class Nic {
 		this.nicDns01 = new SimpleStringProperty(nicDns01);
 		this.nicDns02 = new SimpleStringProperty(nicDns02);
 		this.nicInfo = new SimpleStringProperty(nicInfo);
-		this.selNic = new SimpleBooleanProperty(selNic);
 	}
 
 	/*
@@ -69,10 +65,6 @@ public class Nic {
 	public StringProperty getNicInfo() {
 		return nicInfo;
 	}
-	
-	public BooleanProperty getSelNic() {
-		return selNic;
-	}
 
 	/*
 	 * Setter
@@ -107,10 +99,6 @@ public class Nic {
 	
 	public void setNicInfo(String nicInfo) {
 		this.nicInfo.set(nicInfo);
-	}
-	
-	public void setSelNic(boolean selNic) {
-		this.selNic.setValue(selNic);
 	}
 	
 	@Override

@@ -51,18 +51,21 @@ public class WindowController {
 	}
 	
 	// 네트워크 인터페이스 적용 핸들러
-	public void changeNicInfo(Nic nicTemp, boolean selNicStatus) {
+	public void changeNicInfo(Nic nicTemp) {
+		boolean isChanged = false;
 		Alert alert = showAlert("네트워크 정보 교체", nicTemp.toString(), "네트워크 정보를 바꾸시겠습니까?", AlertType.CONFIRMATION);
 		
 		if (alert.getResult().equals(ButtonType.OK)) {
 			// 바뀌었는가?
-			listNets.getNicTemp(nicTemp, selNicStatus);
+			isChanged = listNets.changeNicInterface(nicTemp);
 			
-			WindowController.getInstance().showAlert(
-					"네트워크 인터페이스 변경 성공", 
-					nicTemp.toString(), 
-					"위 정보로 변경 성공", 
-					AlertType.INFORMATION);
+			if (isChanged) {
+				WindowController.getInstance().showAlert(
+						"변경 성공", 
+						"변경에 성공 하였습니다.", 
+						"",
+						AlertType.INFORMATION);	
+			}
 		}	
 	}
 	

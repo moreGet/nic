@@ -1,7 +1,6 @@
 package ch.get.fx.view;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -9,7 +8,6 @@ import ch.get.fx.ApplicationStart;
 import ch.get.fx.controller.TableDataSetController;
 import ch.get.fx.controller.WindowController;
 import ch.get.fx.model.Nic;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -42,8 +40,8 @@ public class RootLayoutController implements Initializable{
 	private TableColumn<Nic, String> nicDns02;
 	@FXML
 	private TableColumn<Nic, String> nicInfo;
-	@FXML
-	private TableColumn<Nic, Boolean> selNic;
+//	@FXML
+//	private TableColumn<Nic, Boolean> selNic;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -76,20 +74,6 @@ public class RootLayoutController implements Initializable{
 		nicInfo.setCellValueFactory(cellData -> cellData.getValue().getNicInfo());
 		tableDatCont.commitData(nicInfo);
 		
-		// CheckBox
-		tableDatCont.addCheckBoxInCell(selNic);		
-		// Add Listener CheckBox
-		selNic.setCellValueFactory(cellData -> {
-			Nic nic = cellData.getValue();
-			SimpleBooleanProperty boolProp = new SimpleBooleanProperty(nic.getSelNic().get());
-			
-			boolProp.addListener((ob, oV, nV) -> {
-//				log.severe("상태 : " + nV);
-				winCont.changeNicInfo(nic, nV);
-			});
-			return boolProp;
-		});
-		
 		// 컬럼 셋팅 끝
 		ApplicationStart.LOG.info("### INIT_ROOT_CONTROLLER [ " + Thread.currentThread().getName() + " ]");
 				
@@ -97,33 +81,7 @@ public class RootLayoutController implements Initializable{
 		ApplicationStart.LOG.info("### INIT_TABLE_DATA [ " + Thread.currentThread().getName() + " ]");
 	}
 	
-	@FXML
-	private void onClickedExit() {
-		winCont.exit();
-	}
-	
-	@FXML
-	private void onClickedAdd() {
-		boolean isOkay = winCont.addNicInfo();
-		
-		if (isOkay) { // 랜카드 추가 버튼
-			tableDatCont.getNicData().add(NicOverViewLayoutController.instance.getNic());
-		}
-	}
-	
-	@FXML
-	private void onClickedDelete() {
-		int selectedItem = nicTable.getSelectionModel().getSelectedIndex();
-		
-		Optional.ofNullable(selectedItem)
-				.filter(idx -> idx.intValue() >= 0)
-				.ifPresent(idx -> {
-					nicTable.getItems().remove(idx.intValue());
-				});
-	}
-	
-	@FXML
-	private void searchNicInfo() {
-		winCont.search();
+	public TableView<Nic> getNicTable() {
+		return nicTable;
 	}
 }
