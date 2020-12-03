@@ -38,7 +38,8 @@ public class ToolBarLayoutController implements Initializable {
 	
 	@FXML
 	private void onClickedExit() {
-		winCont.exit();
+		System.exit(0);
+//		winCont.exit();
 	}
 	
 	@FXML

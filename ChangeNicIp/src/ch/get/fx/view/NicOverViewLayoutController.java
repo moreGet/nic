@@ -79,7 +79,7 @@ public class NicOverViewLayoutController implements Initializable {
 		for (TextField textField : mandatoryList) {
 			boolean vaildRegx = Pattern.matches(ipRegx, textField.getText());
 			if (!vaildRegx) {
-				winCont.showAlert("IP범위를 벗어남", textField.getText(), "논리주소 필드를 확인해 주세요.", AlertType.WARNING);
+				winCont.showAlert("입력값이 유효하지 않습니다.", textField.getText(), "필드를 확인해 주세요.", AlertType.WARNING);
 				textField.requestFocus();
 				return;
 			}

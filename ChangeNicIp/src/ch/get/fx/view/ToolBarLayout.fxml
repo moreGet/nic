@@ -8,7 +8,7 @@
       <Button mnemonicParsing="false" onAction="#onClickedAdd" text="추가" />
       <Button mnemonicParsing="false" onAction="#onClickedDelete" text="삭제" />
       <Button mnemonicParsing="false" onAction="#changeNicInfo" text="변경" />
-      <Button mnemonicParsing="false" onAction="#onClickedExit" text="닫기" />
+      <Button mnemonicParsing="false" onAction="#onClickedExit" text="종료" />
       <Button mnemonicParsing="false" text="제작자" />
    </children>
 </HBox>
