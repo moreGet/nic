@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 
 public class RootLayoutController implements Initializable{
 	// ½Ì±ÛÅæ
@@ -22,6 +23,8 @@ public class RootLayoutController implements Initializable{
 	// À©µµ¿ì ÄÁÆ®·Ñ·¯
 	private WindowController winCont;
 	
+	@FXML
+	private AnchorPane rootLayout; 
 	@FXML
 	private TableView<Nic> nicTable;
 	@FXML
@@ -83,5 +86,9 @@ public class RootLayoutController implements Initializable{
 	
 	public TableView<Nic> getNicTable() {
 		return nicTable;
+	}
+	
+	public AnchorPane getRootLayout() {
+		return rootLayout;
 	}
 }

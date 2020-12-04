@@ -14,6 +14,7 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -40,6 +41,7 @@ public class ApplicationStart extends Application {
 	private VBox overViewLayout;
 	// view.ToolBarLayout.fxml
 	private HBox toolBarLayout;
+	private TabPane tabPaneLayout;
 	
 	// Layout Properties
 	public static final int TOOL_BAR_WIDTH = 80;
@@ -79,15 +81,17 @@ public class ApplicationStart extends Application {
 			// fxml 에서 레이아웃 가져옴
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(ApplicationStart.class.getResource("view/RootLayout.fxml"));
-			rootLayout = (AnchorPane) loader.load();
+			tabPaneLayout = (TabPane) loader.load();
 			
 			// scene 출력
-			Scene scene = new Scene(rootLayout);
+			Scene scene = new Scene(tabPaneLayout);
 			primaStage.setScene(scene);
 			primaStage.show();
 			
 			// 컨트롤러 셋팅
 			rootCont = (RootLayoutController) loader.getController();
+			// TabPane 에서 rootLayout을 id 값으로 추출
+			rootLayout = rootCont.getRootLayout();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
