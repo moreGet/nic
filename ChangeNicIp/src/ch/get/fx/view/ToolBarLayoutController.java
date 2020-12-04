@@ -20,7 +20,7 @@ public class ToolBarLayoutController implements Initializable {
 	// 윈도우 컨트롤러
 	private WindowController winCont;
 	// 루트 레이아웃 컨트롤러
-	private RootLayoutController rootCont;
+	private TableViewLayoutController tableViewCont;
 	// toolBarStage
 	private Stage toolBarStage;
 	
@@ -29,7 +29,7 @@ public class ToolBarLayoutController implements Initializable {
 		instance = this;
 		tableDatCont = ApplicationStart.tableCont;
 		winCont = ApplicationStart.windowCont;
-		rootCont = RootLayoutController.instance;
+		tableViewCont = ApplicationStart.tableViewCont;
 	}
 
 	public void setToolBarStage(Stage toolBarStage) {
@@ -53,23 +53,23 @@ public class ToolBarLayoutController implements Initializable {
 	
 	@FXML
 	private void onClickedDelete() {
-		int selectedItem = rootCont.getNicTable().getSelectionModel().getSelectedIndex();
+		int selectedItem = tableViewCont.getNicTable().getSelectionModel().getSelectedIndex();
 		
 		Optional.ofNullable(selectedItem)
 				.filter(idx -> idx.intValue() >= 0)
 				.ifPresent(idx -> {
-					rootCont.getNicTable().getItems().remove(idx.intValue());
+					tableViewCont.getNicTable().getItems().remove(idx.intValue());
 				});
 	}
 	
 	@FXML
 	private void changeNicInfo() {
-		int selectedItem = rootCont.getNicTable().getSelectionModel().getSelectedIndex();
+		int selectedItem = tableViewCont.getNicTable().getSelectionModel().getSelectedIndex();
 		
 		Optional.ofNullable(selectedItem)
 		.filter(idx -> idx.intValue() >= 0)
 		.ifPresent(idx -> {
-			Nic nicTemp = rootCont.getNicTable().getItems().get(selectedItem);
+			Nic nicTemp = tableViewCont.getNicTable().getItems().get(selectedItem);
 			winCont.changeNicInfo(nicTemp);
 		});
 	}

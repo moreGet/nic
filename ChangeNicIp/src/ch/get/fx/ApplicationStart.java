@@ -4,17 +4,20 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.jfoenix.controls.JFXTabPane;
+
 import ch.get.fx.controller.TableDataSetController;
 import ch.get.fx.controller.WindowController;
 import ch.get.fx.util.ListNets;
 import ch.get.fx.view.NicOverViewLayoutController;
 import ch.get.fx.view.RootLayoutController;
+import ch.get.fx.view.TableViewLayoutController;
 import ch.get.fx.view.ToolBarLayoutController;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -30,22 +33,25 @@ public class ApplicationStart extends Application {
 	public static NicOverViewLayoutController nicCont;
 	public static RootLayoutController rootCont;
 	public static ToolBarLayoutController toolBarCont;
+	public static TableViewLayoutController tableViewCont;
 	
 	// Logger
 	public final static Logger LOG = Logger.getGlobal();
 	
 	private Stage primaStage;
 	// view.RootLayout.fxml
-	private AnchorPane rootLayout;
+	private JFXTabPane rootLayout;
+	private double tabWidth = 40.0;
 	// view.NicOverViewLayout.fxml
 	private VBox overViewLayout;
 	// view.ToolBarLayout.fxml
 	private HBox toolBarLayout;
-	private TabPane tabPaneLayout;
+	// view.TableViewLayout.fxml
+	private AnchorPane tableViewLayout;
 	
 	// Layout Properties
 	public static final int TOOL_BAR_WIDTH = 80;
-	public static final int TOOL_BAR_TRANS_DISTANCE = 70;
+	public static final int TOOL_BAR_WIDTH_DISTANCE = 70;
 	public static final int TOOL_BAR_HEIGHT = 40;
 	public static final int TOOL_BAR_HEIGHT_DISTANCE = 30;
 	
@@ -67,6 +73,7 @@ public class ApplicationStart extends Application {
 		LOG.setLevel(Level.INFO);
 		LOG.info("MAIN START STEP 1 [ " + Thread.currentThread().getName() + " ] " + " [ " + "INIT LAY_OUT ROOT" + " ] ");
 		initRootLayout();
+		initTableViewLayout();
 		initToolBarLayout();
 		LOG.info("MAIN START STEP 5 [ " + Thread.currentThread().getName() + " ] " + " [ " + "INIT LAY_OUT FINISH" + " ] ");
 	}
@@ -75,23 +82,44 @@ public class ApplicationStart extends Application {
 		launch(args);
 	}
 	
-	public void initRootLayout() {
-		
+	public void initRootLayout() {	
 		try {
 			// fxml 에서 레이아웃 가져옴
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(ApplicationStart.class.getResource("view/RootLayout.fxml"));
-			tabPaneLayout = (TabPane) loader.load();
+			rootLayout = (JFXTabPane) loader.load();
+			
+			// tooltip
+			rootLayout.getTabs().get(0).setTooltip(new Tooltip("랜카드 정보"));
 			
 			// scene 출력
-			Scene scene = new Scene(tabPaneLayout);
+			Scene scene = new Scene(rootLayout);
 			primaStage.setScene(scene);
 			primaStage.show();
 			
 			// 컨트롤러 셋팅
-			rootCont = (RootLayoutController) loader.getController();
-			// TabPane 에서 rootLayout을 id 값으로 추출
-			rootLayout = rootCont.getRootLayout();
+			rootCont = loader.getController();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void initTableViewLayout() {
+		try {
+			// fxml 에서 레이아웃 가져옴
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(ApplicationStart.class.getResource("view/TableViewLayout.fxml"));
+			tableViewLayout = (AnchorPane) loader.load();
+			
+			rootLayout.setTabMinWidth(tabWidth);
+			rootLayout.setTabMaxWidth(tabWidth);
+			rootLayout.setTabMinHeight(tabWidth);
+			rootLayout.setTabMaxHeight(tabWidth);
+			rootLayout.setRotateGraphic(true);
+			rootLayout.getTabs().get(0).setContent(tableViewLayout);
+			
+			// 컨트롤러 셋팅
+			tableViewCont = loader.getController();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -153,7 +181,7 @@ public class ApplicationStart extends Application {
 				transition.play();
 			});
 			
-			rootLayout.getChildren().add(toolBarLayout);
+			tableViewLayout.getChildren().add(toolBarLayout);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
