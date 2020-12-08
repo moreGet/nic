@@ -1,0 +1,204 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property
+ * Metro style Push Button
+ * Author: Pedro Duque Vieira
+ * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
+ */
+
+/*
+ * toolBar
+ */
+#toolBar {
+	-fx-background-color: #88F;
+	-fx-spacing: 5;
+}
+#toolBar .button {
+    -fx-padding: 5 22 5 22;   
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 10;
+    -fx-background-color: #1d1d1d;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+#toolBar .button:hover {
+	 -fx-background-color: #3a3a3a;
+}
+
+#toolBar .button:pressed, .button:default:hover:pressed {
+  -fx-background-color: white;
+  -fx-text-fill: #1d1d1d;
+}
+
+#toolBar .button:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+#toolBar .button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+#toolBar .button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+#toolBar .button:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+.background {
+    -fx-background-color: #ffffff;
+}
+
+/*
+.label {
+    -fx-font-size: 8pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #000000;
+    -fx-opacity: 0.6;
+}
+
+.label-bright {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #000000;
+    -fx-opacity: 1;
+}
+
+.label-header {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #000000;
+    -fx-opacity: 1;
+}
+*/
+
+/*
+ * TableView
+ */
+ 
+.table-view {
+    -fx-base: #FFFFFF;
+    -fx-control-inner-background: #FFFFFF;
+    -fx-background-color: #FFFFFF;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 20;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 20;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color:
+        transparent
+        transparent
+        #28A0FF
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 15;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: black;
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: #28A0FF;
+}
+
+/*
+ * split-pane 
+ */
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
+    -fx-background-color: transparent, derive(#1d1d1d,20%);
+}
+
+.split-pane {
+    -fx-padding: 1 0 0 0;
+}
+
+/*
+ * menuBar 
+ */
+.menu-bar {
+    -fx-background-color: derive(#F9FFFF,20%);
+}
+
+.context-menu {
+    -fx-background-color: derive(#F9FFFF,50%);
+}
+
+.menu-bar .label {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.menu .left-container {
+	-fx-background-color: black;
+}
+
+.text-field {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+/*
+ * tabView
+ */
+.jfx-tab-pane {
+	-fx-base: white;
+	-fx-color: -fx-base;
+	-fx-font-family: "Montserrat";
+	-fx-accent: rgb(246, 246, 246);
+	-fx-default-button: -fx-accent;
+	-jfx-primary-color: -fx-accent;
+	-jfx-light-primary-color: -fx-accent;
+	-jfx-dark-primary-color: -fx-accent;
+	/* -fx-focus-color: rgb(222, 222, 222); */
+	-jfx-secondary-color: -fx-focus-color;
+	-jfx-light-secondary-color: -fx-focus-color;
+	-jfx-dark-secondary-color: -fx-focus-color;
+}
+
+/*******************************************************************************
+* *
+* JFX Tab Pane *
+* *
+******************************************************************************/
+.jfx-tab-pane .headers-region {
+	-fx-background-color: -fx-accent;
+}
+.jfx-tab-pane .tab-header-background {
+	-fx-background-color: -fx-accent;
+}
+.jfx-tab-pane .tab-selected-line {
+	-fx-stroke: -fx-accent;
+}
+.jfx-tab-pane .tab-header-area .jfx-rippler {
+	-jfx-rippler-fill: -fx-focus-color;
+}
+.tab-selected-line {
+	-fx-background-color: -fx-focus-color;
+}

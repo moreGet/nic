@@ -49,7 +49,7 @@ public class WindowController {
 	public void close(Stage stage) {		
 		stage.close();
 	}
-	
+
 	// 네트워크 인터페이스 적용 핸들러
 	public void changeNicInfo(Nic nicTemp) {
 		boolean isChanged = false;

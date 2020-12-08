@@ -88,6 +88,7 @@ public class ApplicationStart extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(ApplicationStart.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (JFXTabPane) loader.load();
+			rootLayout.setPrefSize(500, 500);
 			
 			// tooltip
 			rootLayout.getTabs().get(0).setTooltip(new Tooltip("랜카드 정보"));
@@ -183,7 +184,7 @@ public class ApplicationStart extends Application {
 			
 			tableViewLayout.getChildren().add(toolBarLayout);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 }
