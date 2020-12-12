@@ -1,13 +1,20 @@
 package ch.get.fx;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import com.jfoenix.controls.JFXTabPane;
 
 import ch.get.fx.controller.TableDataSetController;
 import ch.get.fx.controller.WindowController;
+import ch.get.fx.model.NicInfoListWrapper;
 import ch.get.fx.util.ListNets;
 import ch.get.fx.view.NicOverViewLayoutController;
 import ch.get.fx.view.RootLayoutController;
@@ -17,6 +24,7 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -159,6 +167,7 @@ public class ApplicationStart extends Application {
 			loader.setLocation(ApplicationStart.class.getResource("view/ToolBarLayout.fxml"));
 			toolBarLayout = (HBox) loader.load();
 			toolBarCont = loader.getController();
+			toolBarCont.setMainApp(this);
 			
 			toolBarLayout.prefWidthProperty().bind(rootLayout.widthProperty());
 			AnchorPane.setBottomAnchor(toolBarLayout, 0.0);
@@ -186,5 +195,81 @@ public class ApplicationStart extends Application {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// window prop
+	public File getNicInfoFilePath() {
+		Preferences prefs = Preferences.userNodeForPackage(ApplicationStart.class);
+		String filePath = prefs.get("filePath", null);
+		if (filePath != null) {
+			return new File(filePath);
+		} else {
+			return null;
+		}
+	}
+	
+	public void setNicInfoFilePath(File file) {
+		Preferences prefs = Preferences.userNodeForPackage(ApplicationStart.class);
+		if (file != null) {
+			prefs.put("filePath", file.getPath());
+		} else {
+			prefs.remove("filePath");
+		}
+	}
+
+	/*
+	 * JAXB I/O
+	 */
+	public void loadNicInfoDataFromFile(File file) {
+		try {
+			JAXBContext context = JAXBContext.newInstance(NicInfoListWrapper.class);
+			Unmarshaller um = context.createUnmarshaller();
+			
+			// File -> XML -> Instance
+			NicInfoListWrapper infoListWrapper = (NicInfoListWrapper) um.unmarshal(file);
+			tableCont.getNicData().clear();
+			tableCont.getNicData().addAll(infoListWrapper.getNicInfo());
+			
+			// 파일경로 -> 레지스트리
+			setNicInfoFilePath(file);
+		} catch (Exception e) {
+			windowCont.showAlert(
+					"읽기 에러", 
+					"XML 파일을 불러오지 못했습니다.", 
+					"XML파일을 확인하세요.\n경로 : " + file.getPath(), 
+					AlertType.ERROR);
+		}
+	}
+	
+	public void saveNicInfoDataToFile(File file) {
+	    try {
+	        JAXBContext context = JAXBContext
+	                .newInstance(NicInfoListWrapper.class);
+	        Marshaller m = context.createMarshaller();
+	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+	        // 연락처 데이터를 감싼다.
+	        NicInfoListWrapper wrapper = new NicInfoListWrapper();
+	        wrapper.setNicInfo(tableCont.getNicData());
+
+	        // 마샬링 후 XML을 파일에 저장한다.
+	        m.marshal(wrapper, file);
+
+	        // 파일 경로를 레지스트리에 저장한다.
+	        setNicInfoFilePath(file);
+	    } catch (Exception e) { // 예외를 잡는다.
+			windowCont.showAlert(
+					"쓰기 에러", 
+					"XML 파일을 저장하지 못했습니다.", 
+					"경로를 확인 하세요.\n경로 : " + file.getPath(), 
+					AlertType.ERROR);
+	    }
+	}
+	
+	/*
+	 * Getter / Setter
+	 */
+	public Stage getPrimaStage() {
+		return primaStage;
 	}
 }

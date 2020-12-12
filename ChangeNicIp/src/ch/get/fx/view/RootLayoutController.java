@@ -17,11 +17,24 @@ public class RootLayoutController implements Initializable{
 	private TableDataSetController tableDatCont;
 	// 윈도우 컨트롤러
 	private WindowController winCont;
+	// MainInstance
+	private ApplicationStart mainApp;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		instance = this;
 		tableDatCont = ApplicationStart.tableCont;
 		winCont = ApplicationStart.windowCont;
+	}
+
+	/*
+	 * getter / setter
+	 */
+	public ApplicationStart getMainApp() {
+		return mainApp;
+	}
+
+	public void setMainApp(ApplicationStart mainApp) {
+		this.mainApp = mainApp;
 	}
 }

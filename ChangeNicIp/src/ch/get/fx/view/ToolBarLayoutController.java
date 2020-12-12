@@ -1,5 +1,6 @@
 package ch.get.fx.view;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -10,6 +11,7 @@ import ch.get.fx.controller.WindowController;
 import ch.get.fx.model.Nic;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class ToolBarLayoutController implements Initializable {
@@ -23,6 +25,8 @@ public class ToolBarLayoutController implements Initializable {
 	private TableViewLayoutController tableViewCont;
 	// toolBarStage
 	private Stage toolBarStage;
+	// MainInstance
+	private ApplicationStart mainApp;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -72,5 +76,55 @@ public class ToolBarLayoutController implements Initializable {
 			Nic nicTemp = tableViewCont.getNicTable().getItems().get(selectedItem);
 			winCont.changeNicInfo(nicTemp);
 		});
+	}
+	
+	/*
+	 * Clear nicInfo
+	 */
+	private void clearNicInfo() {
+		tableDatCont.getNicData().clear(); // 현재 NicInfo 초기화
+		mainApp.setNicInfoFilePath(null); // 레지스트리 데이터 삭제
+	}
+	
+	/*
+	 * JAXB I/O
+	 * FileChooser
+	 */
+	@FXML
+	private void handleOpenNicInfoXml() {
+		FileChooser fileChooser = new FileChooser();
+		
+		// 확장자 필터를 설정한다.
+		FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter(
+				"XML files (*,xml)", "*.xml");
+		fileChooser.getExtensionFilters().add(extensionFilter);
+		
+		// Save file dialog
+		File file = fileChooser.showOpenDialog(mainApp.getPrimaStage());
+		
+		if (file != null) {
+			mainApp.loadNicInfoDataFromFile(file);
+		}
+	}
+	
+	@FXML
+	private void handleSaveNicInfoXml() {
+		
+	}
+	
+	@FXML
+	private void handleSaveAsNicInfoXml() {
+		
+	}
+	
+	/*
+	 * getter / setter
+	 */
+	public ApplicationStart getMainApp() {
+		return mainApp;
+	}
+
+	public void setMainApp(ApplicationStart mainApp) {
+		this.mainApp = mainApp;
 	}
 }

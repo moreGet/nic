@@ -1,5 +1,6 @@
 package ch.get.fx.view;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -12,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.FileChooser;
 
 public class TableViewLayoutController implements Initializable {
 	// ΩÃ±€≈Ê
@@ -42,6 +44,8 @@ public class TableViewLayoutController implements Initializable {
 	private TableColumn<Nic, String> nicInfo;
 //	@FXML
 //	private TableColumn<Nic, Boolean> selNic;
+	// MainInstance
+	private ApplicationStart mainApp;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -77,7 +81,18 @@ public class TableViewLayoutController implements Initializable {
 		nicTable.setItems(tableDatCont.getNicData());
 	}
 	
+	/*
+	 * Getter / Setter
+	 */
 	public TableView<Nic> getNicTable() {
 		return nicTable;
+	}
+	
+	public ApplicationStart getMainApp() {
+		return mainApp;
+	}
+
+	public void setMainApp(ApplicationStart mainApp) {
+		this.mainApp = mainApp;
 	}
 }
