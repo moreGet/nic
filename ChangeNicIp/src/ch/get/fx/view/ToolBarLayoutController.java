@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javax.net.ssl.HandshakeCompletedListener;
+
 import ch.get.fx.ApplicationStart;
 import ch.get.fx.controller.TableDataSetController;
 import ch.get.fx.controller.WindowController;
@@ -109,13 +111,34 @@ public class ToolBarLayoutController implements Initializable {
 	
 	@FXML
 	private void handleSaveNicInfoXml() {
-		
+		File nicFile = mainApp.getNicInfoFilePath(); // 현재 열려있는 파일 경로
+		if (nicFile != null) { // 없다면.
+			mainApp.saveNicInfoDataToFile(nicFile); // 새로저장
+		} else {
+			handleSaveAsNicInfoXml(); // 기존 경로가 존재하면 다름 이름으로 저장
+		}
 	}
 	
 	@FXML
 	private void handleSaveAsNicInfoXml() {
+		FileChooser fileChooser = new FileChooser();
 		
-	}
+		// 확장자 필터를 설정한다.
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+				"XML files (*.xml)", "*.xml");
+		fileChooser.getExtensionFilters().add(extFilter);
+		
+		// Save File Dialong를 보여준다.
+		File file = fileChooser.showSaveDialog(mainApp.getPrimaStage());
+		
+		if (file != null) {
+			// 정확한 확장자를 가져야 함.
+			if (!file.getPath().endsWith(",xml")) {
+				file = new File(file.getPath());
+			}
+			mainApp.saveNicInfoDataToFile(file);
+		}
+	} 
 	
 	/*
 	 * getter / setter

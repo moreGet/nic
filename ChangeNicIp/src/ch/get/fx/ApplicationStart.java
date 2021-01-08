@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
@@ -96,7 +97,7 @@ public class ApplicationStart extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(ApplicationStart.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (JFXTabPane) loader.load();
-			rootLayout.setPrefSize(500, 500);
+			rootLayout.setPrefSize(800, 500);
 			
 			// tooltip
 			rootLayout.getTabs().get(0).setTooltip(new Tooltip("랜카드 정보"));
@@ -200,7 +201,10 @@ public class ApplicationStart extends Application {
 	// window prop
 	public File getNicInfoFilePath() {
 		Preferences prefs = Preferences.userNodeForPackage(ApplicationStart.class);
-		String filePath = prefs.get("filePath", null);
+//		prefs.remove("filePath"); // 저장 장소 리셋
+		
+		String filePath = prefs.get("filePath", null);	
+		
 		if (filePath != null) {
 			return new File(filePath);
 		} else {
@@ -210,6 +214,7 @@ public class ApplicationStart extends Application {
 	
 	public void setNicInfoFilePath(File file) {
 		Preferences prefs = Preferences.userNodeForPackage(ApplicationStart.class);
+		
 		if (file != null) {
 			prefs.put("filePath", file.getPath());
 		} else {
