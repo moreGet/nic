@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
@@ -268,6 +267,8 @@ public class ApplicationStart extends Application {
 					"XML 파일을 저장하지 못했습니다.", 
 					"경로를 확인 하세요.\n경로 : " + file.getPath(), 
 					AlertType.ERROR);
+			
+			e.printStackTrace();
 	    }
 	}
 	

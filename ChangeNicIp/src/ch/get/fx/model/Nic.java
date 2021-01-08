@@ -32,38 +32,73 @@ public class Nic {
 	}
 
 	/*
-	 * Getter
+	 * PropertyGetter
 	 */
-	public StringProperty getNicName() {
+	public StringProperty nicNameProperty() {
 		return nicName;
 	}
 
-	public StringProperty getNicIp() {
+	public StringProperty nicIpProperty() {
 		return nicIp;
 	}
 
-	public StringProperty getNicMask() {
+	public StringProperty nicMaskProperty() {
 		return nicMask;
 	}
 
-	public StringProperty getNicGate() {
+	public StringProperty nicGateProperty() {
 		return nicGate;
 	}
-
-	public StringProperty getNicDns01() {
+	
+	public StringProperty nicDns01Property() {
 		return nicDns01;
 	}
 
-	public StringProperty getNicDns02() {
+	public StringProperty nicDns02Property() {
 		return nicDns02;
 	}
 
-	public StringProperty getNicKind() {
+	public StringProperty nicKindProperty() {
 		return nicKind;
 	}
 
-	public StringProperty getNicInfo() {
+	public StringProperty nicInfoProperty() {
 		return nicInfo;
+	}
+	
+	/*
+	 * Getter
+	 */
+	public String getNicName() {
+		return nicName.get();
+	}
+
+	public String getNicIp() {
+		return nicIp.get();
+	}
+
+	public String getNicMask() {
+		return nicMask.get();
+	}
+
+	public String getNicGate() {
+		return nicGate.get();
+	}
+
+	public String getNicDns01() {
+		return nicDns01.get();
+	}
+
+	public String getNicDns02() {
+		return nicDns02.get();
+	}
+
+	public String getNicKind() {
+		return nicKind.get();
+	}
+
+	public String getNicInfo() {
+		return nicInfo.get();
 	}
 
 	/*

@@ -53,7 +53,7 @@ public class ListNets {
 	
 	// 인터넷 스위치
 	private List<String[]> switchInterNet(Nic nic) {
-		String nicName = nic.getNicName().get();
+		String nicName = nic.getNicName();
 		
         String[] ip = { "netsh", "interface", "ip", "set", "address",
         "name=", nicName ,"source=dhcp"};
@@ -70,12 +70,12 @@ public class ListNets {
 	// 인트라넷 스위치
 	// 바꿀때 IP 만맞으면 매개변수 틀리다고 나옴
 	private List<String[]> switchIntraNet(Nic nicTemp) {
-		String nicName = nicTemp.getNicName().get();
-		String nicIp = nicTemp.getNicIp().get();
-		String nicMask = nicTemp.getNicMask().get();
-		String nicGate = nicTemp.getNicGate().get();
-		String nicDns01 = nicTemp.getNicDns01().get();
-		String nicDns02 = nicTemp.getNicDns02().get();
+		String nicName = nicTemp.getNicName();
+		String nicIp = nicTemp.getNicIp();
+		String nicMask = nicTemp.getNicMask();
+		String nicGate = nicTemp.getNicGate();
+		String nicDns01 = nicTemp.getNicDns01();
+		String nicDns02 = nicTemp.getNicDns02();
 
         String[] ip = { "netsh", "interface", "ip", "set", "address",
         "name=",nicName ,"source=static", "addr=",nicIp,

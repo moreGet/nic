@@ -1,6 +1,5 @@
 package ch.get.fx.view;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -13,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.FileChooser;
 
 public class TableViewLayoutController implements Initializable {
 	// ½Ì±ÛÅæ
@@ -54,28 +52,28 @@ public class TableViewLayoutController implements Initializable {
 		winCont = ApplicationStart.windowCont;
 		
 		// ±âº»°ª ¼ÂÆÃ
-		nicKind.setCellValueFactory(cellData -> cellData.getValue().getNicKind());
+		nicKind.setCellValueFactory(cellData -> cellData.getValue().nicKindProperty());
 		tableDatCont.commitData(nicKind);
 		
-		nicName.setCellValueFactory(cellData -> cellData.getValue().getNicName());
+		nicName.setCellValueFactory(cellData -> cellData.getValue().nicNameProperty());
 		tableDatCont.commitData(nicName);
 		
-		nicIp.setCellValueFactory(cellData -> cellData.getValue().getNicIp());
+		nicIp.setCellValueFactory(cellData -> cellData.getValue().nicIpProperty());
 		tableDatCont.commitData(nicIp);
 		
-		nicMask.setCellValueFactory(cellData -> cellData.getValue().getNicMask());
+		nicMask.setCellValueFactory(cellData -> cellData.getValue().nicMaskProperty());
 		tableDatCont.commitData(nicMask);
 		
-		nicGate.setCellValueFactory(cellData -> cellData.getValue().getNicGate());
+		nicGate.setCellValueFactory(cellData -> cellData.getValue().nicGateProperty());
 		tableDatCont.commitData(nicGate);
 		
-		nicDns01.setCellValueFactory(cellData -> cellData.getValue().getNicDns01());
+		nicDns01.setCellValueFactory(cellData -> cellData.getValue().nicDns01Property());
 		tableDatCont.commitData(nicDns01);
 		
-		nicDns02.setCellValueFactory(cellData -> cellData.getValue().getNicDns02());
+		nicDns02.setCellValueFactory(cellData -> cellData.getValue().nicDns02Property());
 		tableDatCont.commitData(nicDns02);
 		
-		nicInfo.setCellValueFactory(cellData -> cellData.getValue().getNicInfo());
+		nicInfo.setCellValueFactory(cellData -> cellData.getValue().nicInfoProperty());
 		tableDatCont.commitData(nicInfo);
 				
 		nicTable.setItems(tableDatCont.getNicData());
