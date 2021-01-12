@@ -98,6 +98,7 @@ public class ListNets {
 		BufferedReader br = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 		
 		while ((msg = br.readLine()) != null) {
+			System.out.println(msg);
 			if (msg.contains(CommandError.ERROR_PERMIT.getErrorCode())) {
 				sb.append("관리자 권한이 필요 합니다.");
 			} else if(msg.contains(CommandError.ERROR_NIC_NAME.getErrorCode())) {
