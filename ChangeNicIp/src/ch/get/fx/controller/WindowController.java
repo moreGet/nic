@@ -1,5 +1,7 @@
 package ch.get.fx.controller;
 
+import java.util.Optional;
+
 import ch.get.fx.ApplicationStart;
 import ch.get.fx.model.Nic;
 import ch.get.fx.util.ListNets;
@@ -57,8 +59,7 @@ public class WindowController {
 		
 		if (alert.getResult().equals(ButtonType.OK)) {
 			// 바뀌었는가?
-			isChanged = listNets.changeNicInterface(nicTemp);
-			
+			isChanged = listNets.changeIntraNet(nicTemp); // 선택된 값이 존재 하면 인트라넷
 			if (isChanged) {
 				WindowController.getInstance().showAlert(
 						"변경 성공", 
@@ -67,6 +68,23 @@ public class WindowController {
 						AlertType.INFORMATION);	
 			}
 		}	
+	}
+	
+	public void reStoreNicInfo(Nic nicTemp) {
+		boolean isChanged = false;
+		Alert alert = showAlert("네트워크 정보 교체", "인터넷 환경", "네트워크 정보를 바꾸시겠습니까?", AlertType.CONFIRMATION);
+		
+		if (alert.getResult().equals(ButtonType.OK)) {
+			// 바뀌었는가?
+			isChanged = listNets.changeInterNet(nicTemp); // 선택된 값이 존재 하면 인트라넷
+			if (isChanged) {
+				WindowController.getInstance().showAlert(
+						"변경 성공", 
+						"변경에 성공 하였습니다.", 
+						"",
+						AlertType.INFORMATION);	
+			}
+		}
 	}
 	
 	public boolean addNicInfo() {

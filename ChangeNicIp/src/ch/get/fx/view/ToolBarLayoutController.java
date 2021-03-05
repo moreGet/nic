@@ -73,8 +73,20 @@ public class ToolBarLayoutController implements Initializable {
 		Optional.ofNullable(selectedItem)
 		.filter(idx -> idx.intValue() >= 0)
 		.ifPresent(idx -> {
-			Nic nicTemp = tableViewCont.getNicTable().getItems().get(selectedItem);
+			Nic nicTemp = tableViewCont.getNicTable().getItems().get(idx);
 			winCont.changeNicInfo(nicTemp);
+		});
+	}
+	
+	@FXML
+	private void reStoreNicInfo() {
+		int selectedItem = tableViewCont.getNicTable().getSelectionModel().getSelectedIndex();
+		
+		Optional.ofNullable(selectedItem)
+		.filter(idx -> idx.intValue() >= 0)
+		.ifPresent(idx -> {
+			Nic nicTemp = tableViewCont.getNicTable().getItems().get(idx);
+			winCont.reStoreNicInfo(nicTemp);
 		});
 	}
 	

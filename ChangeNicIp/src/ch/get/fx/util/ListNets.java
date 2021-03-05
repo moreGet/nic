@@ -29,19 +29,36 @@ public class ListNets {
 	/*
 	 * 기능
 	 */
-	public boolean changeNicInterface(Nic nicTemp) {
+	public boolean changeIntraNet(Nic nicTemp) {
+		boolean changeOkay = false; // NIC정보 바뀌었는지?
+		List<String[]> nicInterfaceInfo = new ArrayList<String[]>();
+		nicInterfaceInfo = switchIntraNet(nicTemp); // 체크가 되면 인트라넷		
+		
+		try {
+			// 관리자 권한 보기
+			for (String[] command : nicInterfaceInfo) {
+				if (!vaildAdminPermit(command)) {
+					return changeOkay = false;
+				}
+			}
+			changeOkay = true;
+		} catch (Exception e) {
+//			e.printStackTrace();
+		}
+		return changeOkay;
+	}
+	
+	public boolean changeInterNet(Nic nicTemp) {
 		boolean changeOkay = false; // NIC정보 바뀌었는지?
 		// 체크 박스 유무에 따라 VPN인지 사내망 IP인지 정보를 가져와야 함
 		List<String[]> nicInterfaceInfo = new ArrayList<String[]>();
-		
-//		nicInterfaceInfo = switchIntraNet(nicTemp); // 체크가 되면 인트라넷
 		nicInterfaceInfo = switchInterNet(nicTemp); // 아니라면 인터넷
 		
 		try {
 			// 관리자 권한 보기
 			for (String[] command : nicInterfaceInfo) {
 				if (!vaildAdminPermit(command)) {
-					throw new Exception();
+					return changeOkay = false;
 				}
 			}
 			changeOkay = true;
@@ -91,7 +108,7 @@ public class ListNets {
         return Arrays.asList(ip, dns, dns2);
 	}
 	
-	public synchronized boolean vaildAdminPermit(String[] command) throws Exception {
+	public boolean vaildAdminPermit(String[] command) throws Exception {
 		StringBuffer sb = new StringBuffer("");
 		String msg = "";
 		Process proc = Runtime.getRuntime().exec(command);
